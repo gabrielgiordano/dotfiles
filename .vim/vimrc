@@ -1,0 +1,140 @@
+" vim: fdm=marker
+nnoremap <Space> za
+
+" Vundle {{{1
+
+set nocompatible
+filetype off
+
+" Set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" Alternatively, pass a path where Vundle should install plugins
+" call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/vundle.vim'
+
+" Plugins {{{1
+
+Plugin 'flazz/vim-colorschemes'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'thoughtbot/vim-rspec'
+
+" Vundle {{{1
+
+call vundle#end()
+filetype plugin indent on
+
+" UI {{{1
+
+syntax enable
+colorscheme Monokai
+
+set number
+set colorcolumn=80
+set cursorline
+set ruler
+set showcmd
+set noshowmode
+set showmatch
+set wildmenu
+set laststatus=2
+set list listchars=tab:»·,trail:·
+
+" Indentation {{{1
+
+set autoindent
+set tabstop=2
+set softtabstop=2
+set expandtab
+set shiftwidth=2
+
+" Searching {{{1
+
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Key Mappings {{{1
+
+let mapleader = ','
+
+noremap <C-f> /
+
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+vnoremap <C-x> d
+vnoremap <C-c> y
+nnoremap <C-v> gp
+
+map Q gq
+noremap <C-l> :nohlsearch<CR>
+inoremap <C-c> <Esc>
+inoremap <C-@> <C-n>
+
+noremap <Leader><Leader> <C-^>
+
+" CtrlP {{{1
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/.git/*
+
+let g:ctrlp_open_func = { 'files': 'CustomOpenFunc' }
+function! CustomOpenFunc(action, line)
+  call call('ctrlp#acceptfile', [':t', a:line])
+endfunction
+
+" NERDTree {{{1
+
+map <C-b> :NERDTreeToggle<CR>
+
+" Vim Airline {{{1
+
+let g:airline_theme='term'
+" ThemePatch {{{2
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+  function! AirlineThemePatch(palette)
+    if g:airline_theme == 'term'
+      let g:airline_left_sep=''
+      let g:airline_right_sep=''
+    endif
+  endfunction
+" 2}}}
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+noremap <C-m> <Esc>:bnext<CR>
+noremap <C-n> <Esc>:bprevious<CR>
+noremap <C-t> <Esc>:enew<CR>
+noremap <C-k> <Esc>:bdelete<CR>
+
+" RSpec Vim {{{1
+
+map tf :call RunCurrentSpecFile()<CR>
+map te :call RunNearestSpec()<CR>
+map tt :call RunLastSpec()<CR>
+map tA :call RunAllSpecs()<CR>
+
+" Other Settings {{{1
+
+set history=5000
+set lazyredraw
+set encoding=utf-8
+set backspace=indent,eol,start
+set selection=exclusive
+set completeopt=menuone,longest,preview
+
