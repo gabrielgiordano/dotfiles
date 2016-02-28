@@ -1,0 +1,9 @@
+[credential]
+	helper = store
+[core]
+	editor = vim
+[user]
+	name = Gabriel Giordano
+	email = gabriel.giordano@estudar.org.br
+[push]
+	default = simple
