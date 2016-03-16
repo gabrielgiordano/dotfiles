@@ -65,16 +65,25 @@ set smartcase
 
 let mapleader = ','
 
+" Search with CTRL+F
 noremap <C-f> /
 
+" Indentation
 nnoremap <Tab> >>
 nnoremap <S-Tab> <<
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 
+" Copy and paste
 vnoremap <C-x> d
 vnoremap <C-c> y
 nnoremap <C-v> gp
+
+" Resizing windows
+noremap <C-w>. <C-w>>
+noremap <C-w>, <C-w><
+noremap <C-w>- <C-w>-
+noremap <C-w>= <C-w>+
 
 map Q gq
 noremap <C-l> :nohlsearch<CR>
