@@ -147,4 +147,5 @@ set backspace=indent,eol,start
 set selection=exclusive
 set completeopt=menuone,longest,preview
 set mouse=a
+set clipboard=unnamedplus
 
