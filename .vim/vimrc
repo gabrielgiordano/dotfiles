@@ -87,9 +87,12 @@ noremap <C-w>= <C-w>+
 
 map Q gq
 noremap <C-l> :nohlsearch<CR>
-inoremap <C-c> <Esc>
-inoremap <C-@> <C-n>
 
+" Auto completion with Ctrl + Space
+inoremap <C-@> <C-n>
+inoremap <C-c> <Esc>
+
+" Switch with previous file
 noremap <Leader><Leader> <C-^>
 
 " CtrlP {{{1
