@@ -65,12 +65,13 @@ set smartcase
 
 " Key Mappings {{{1
 
-let mapleader = ','
-
 map Q gq
 
-" Switch with previous file
-noremap <Leader><Leader> <C-^>
+" Disable arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " CtrlP {{{1
 
@@ -115,7 +116,6 @@ set lazyredraw
 set encoding=utf-8
 set backspace=indent,eol,start
 set selection=exclusive
-set mouse=a
 set clipboard=unnamedplus
 set noswapfile
 
