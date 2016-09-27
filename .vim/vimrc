@@ -27,6 +27,7 @@ Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-cucumber'
 Plugin 'godlygeek/tabular'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'tpope/vim-endwise'
 
 " Vundle {{{1
 
@@ -40,7 +41,7 @@ colorscheme Monokai
 
 set number
 set colorcolumn=80
-set cursorline
+set nowrap
 set ruler
 set showcmd
 set noshowmode
