@@ -18,7 +18,7 @@ EOF
 
 mkdir -p ~/$folder
 
-if [[ ! -f "$file" ]] ; then
+if [[ ! -f ~/"$file" ]] ; then
   echo "$template" > ~/"$file"
 fi
 
