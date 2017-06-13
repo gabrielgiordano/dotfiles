@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+filename="$(date +%d%m%y)"
+folder=".diary"
+file="${folder}/${filename}.txt"
+template=$(cat << EOF
+$(date)
+
+Pontos positivos:
+
+Pontos negativos:
+
+EOF
+)
+
+
+mkdir -p ~/$folder
+
+if [[ ! -f "$file" ]] ; then
+  echo "$template" > "$file"
+fi
+
+vim ~/$file
