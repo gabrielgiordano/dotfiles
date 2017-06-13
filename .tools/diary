@@ -19,7 +19,7 @@ EOF
 mkdir -p ~/$folder
 
 if [[ ! -f "$file" ]] ; then
-  echo "$template" > "$file"
+  echo "$template" > ~/"$file"
 fi
 
 vim ~/$file
