@@ -82,7 +82,7 @@ function! CustomOpenFunc(action, line)
   call call('ctrlp#acceptfile', [':t', a:line])
 endfunction
 
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 " NERDTree {{{1
 
