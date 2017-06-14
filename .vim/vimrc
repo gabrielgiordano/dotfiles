@@ -19,6 +19,7 @@ Plugin 'VundleVim/vundle.vim'
 
 Plugin 'flazz/vim-colorschemes'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'FelikZ/ctrlp-py-matcher'
 Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
@@ -28,6 +29,7 @@ Plugin 'tpope/vim-cucumber'
 Plugin 'godlygeek/tabular'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'tpope/vim-endwise'
+Plugin 'mattn/emmet-vim'
 
 " Vundle {{{1
 
@@ -79,6 +81,8 @@ let g:ctrlp_open_func = { 'files': 'CustomOpenFunc' }
 function! CustomOpenFunc(action, line)
   call call('ctrlp#acceptfile', [':t', a:line])
 endfunction
+
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 " NERDTree {{{1
 
