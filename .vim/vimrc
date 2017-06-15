@@ -160,7 +160,7 @@ set history=5000
 set encoding=utf-8
 set backspace=indent,eol,start
 set selection=exclusive
-set clipboard=unnamedplus
+" set clipboard=unnamed
 set noswapfile
 set nojoinspaces
 
