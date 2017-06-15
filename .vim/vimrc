@@ -19,16 +19,19 @@ Plugin 'VundleVim/vundle.vim'
 
 Plugin 'flazz/vim-colorschemes'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'FelikZ/ctrlp-py-matcher'
 Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'pbrisbin/vim-mkdir'
+Plugin 'pangloss/vim-javascript'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'tpope/vim-cucumber'
 Plugin 'godlygeek/tabular'
-Plugin 'leafgarland/typescript-vim'
 Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
 Plugin 'mattn/emmet-vim'
 
 " Vundle {{{1
@@ -49,7 +52,7 @@ set showcmd
 set noshowmode
 set showmatch
 set laststatus=2
-set list listchars=tab:»·,trail:·
+set list listchars=tab:»·,trail:·,nbsp:·
 
 " Indentation {{{1
 
@@ -58,6 +61,7 @@ set tabstop=2
 set softtabstop=2
 set expandtab
 set shiftwidth=2
+set shiftround
 
 " Searching {{{1
 
@@ -70,6 +74,12 @@ set smartcase
 
 map Q gq
 
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
 " CtrlP {{{1
 
 let g:ctrlp_map = '<c-p>'
@@ -81,8 +91,6 @@ let g:ctrlp_open_func = { 'files': 'CustomOpenFunc' }
 function! CustomOpenFunc(action, line)
   call call('ctrlp#acceptfile', [':t', a:line])
 endfunction
-
-" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 " NERDTree {{{1
 
@@ -108,15 +116,57 @@ map te :call RunNearestSpec()<CR>
 map tt :call RunLastSpec()<CR>
 map tA :call RunAllSpecs()<CR>
 
+" Silver Searcher {{{1
+
+" https://github.com/thoughtbot/dotfiles/blob/e51d8b73f0d8ab99d1a12efdfbcd6dd287bec15c/vimrc#L65
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+
+  if !exists(":Ag")
+    command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+    nnoremap \ :Ag<SPACE>
+  endif
+endif
+
+" Tab Completion {{{1
+
+" https://github.com/thoughtbot/dotfiles/blob/e51d8b73f0d8ab99d1a12efdfbcd6dd287bec15c/vimrc#L90
+" Tab completion
+" will insert tab at beginning of line,
+" will use completion if not at beginning
+set wildmode=list:longest,list:full
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <S-Tab> <c-n>
+
 " Other Settings {{{1
 
 set history=5000
-set lazyredraw
 set encoding=utf-8
 set backspace=indent,eol,start
 set selection=exclusive
 set clipboard=unnamedplus
 set noswapfile
+set nojoinspaces
+
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
 
 " Fast escape key
 set timeoutlen=1000 ttimeoutlen=0

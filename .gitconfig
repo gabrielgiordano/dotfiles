@@ -1,9 +1,11 @@
 [credential]
-	helper = store
+  helper = store
 [core]
-	editor = vim
+  editor = vim
 [user]
-	name = Gabriel Giordano
-	email = gabriel.giordano@estudar.org.br
+  name = Gabriel Giordano
+  email = gabriel.giordano@estudar.org.br
 [push]
-	default = simple
+  default = simple
+[commit]
+  template = ~/.gitmessage
