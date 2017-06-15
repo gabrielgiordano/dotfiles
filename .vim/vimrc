@@ -164,6 +164,10 @@ set clipboard=unnamedplus
 set noswapfile
 set nojoinspaces
 
+" trim_trailing_white_space_on_save
+autocmd FileType ruby,html,css,javascript,eruby,dockerfile,cucumber autocmd BufWritePre <buffer> %s/\s\+$//e
+set eol
+
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
