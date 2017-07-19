@@ -4,8 +4,18 @@
   editor = vim
 [user]
   name = Gabriel Giordano
-  email = gabriel.giordano@estudar.org.br
+  email = gabriel.giordano@plataformatec.com.br
 [push]
   default = simple
 [commit]
   template = ~/.gitmessage
+[pull]
+  rebase = true
+[merge]
+  ff = false
+[alias]
+  pf = push --force-with-lease
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  ls = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
+  lf = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short --numstat
+
