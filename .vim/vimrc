@@ -99,11 +99,6 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/.git/*
 
-let g:ctrlp_open_func = { 'files': 'CustomOpenFunc' }
-function! CustomOpenFunc(action, line)
-  call call('ctrlp#acceptfile', [':t', a:line])
-endfunction
-
 " NERDTree {{{1
 
 map <C-n> :NERDTreeToggle<CR>
