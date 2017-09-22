@@ -23,17 +23,18 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'pbrisbin/vim-mkdir'
-Plugin 'pangloss/vim-javascript'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'tpope/vim-cucumber'
-Plugin 'godlygeek/tabular'
-Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
+Plugin 'janko-m/vim-test'
+Plugin 'tpope/vim-dispatch' " vim-test dependency
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-cucumber'
+Plugin 'godlygeek/tabular' " tim-pope gist dependency
+Plugin 'pangloss/vim-javascript'
 Plugin 'mattn/emmet-vim'
-Plugin 'mileszs/ack.vim'
 
 " Vundle {{{1
 
@@ -73,6 +74,7 @@ set smartcase
 
 " Key Mappings {{{1
 
+let mapleader = ","
 map Q gq
 
 " Quicker window movement
@@ -80,6 +82,15 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+" Switch between the last two files
+nnoremap <Leader><Leader> <c-^>
+
+" Create new line without leaving normal mode
+nnoremap <CR> O<Esc>j
+
+" Break line without going into insert mode
+nnoremap <Leader>b i<CR><Esc>k$
 
 " CtrlP {{{1
 
@@ -110,12 +121,19 @@ let g:airline_theme_patch_func = 'AirlineThemePatch'
   endfunction
 " 2}}}
 
-" RSpec Vim {{{1
+" Syntastic {{{1
 
-map tf :call RunCurrentSpecFile()<CR>
-map te :call RunNearestSpec()<CR>
-map tt :call RunLastSpec()<CR>
-map tA :call RunAllSpecs()<CR>
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+
+" test.vim {{{1
+
+let test#strategy = "dispatch"
+
+nmap <Leader>tf :TestFile<CR>
+nmap <Leader>te :TestNearest<CR>
+nmap <Leader>tl :TestLast<CR>
+nmap <Leader>ts :TestSuite<CR>
+nmap <Leader>tv :TestVisit<CR>
 
 " Silver Searcher {{{1
 
