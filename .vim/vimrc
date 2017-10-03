@@ -2,7 +2,6 @@
 nnoremap <Space> za
 
 " Vundle {{{1
-
 set nocompatible
 filetype off
 
@@ -23,7 +22,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'pbrisbin/vim-mkdir'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
@@ -39,38 +38,68 @@ Plugin 'mattn/emmet-vim'
 " Vundle {{{1
 
 call vundle#end()
+
+" Vim Settings {{{1
+
+set nocompatible                   " Don't bother making vim compatible with vi
 filetype plugin indent on
 
-" UI {{{1
+set history=5000                   " Command history size
+set encoding=utf-8
+set clipboard=unnamed
+set noswapfile
+set timeoutlen=1000 ttimeoutlen=0  " Fast escape key
 
+" Performance {{{2
+
+set ttyfast                        " Faster redrawing
+set lazyredraw                     " Only redraw when necessary
+
+" Interface {{{2
+
+colorscheme Monokai                      " Dependend on vim-colorschemes
 syntax enable
-colorscheme Monokai
 
-set number
-set colorcolumn=80
-set nowrap
-set ruler
-set showcmd
-set noshowmode
-set showmatch
-set laststatus=2
-set list listchars=tab:»·,trail:·,nbsp:·
+set number                               " Show line numbers
+set colorcolumn=80                       " Show where column 80 is
+set nowrap                               " Don't wrap long lines
+set ruler                                " Show cursor postion all time
+set showcmd                              " Show command as you type
+set laststatus=2                         " Always show the status line
+set noshowmode                           " Mode will be shown in status line
+set list listchars=tab:»·,trail:·,nbsp:· " Show non printable characters.
 
-" Indentation {{{1
+" Window Management {{{2
 
-set autoindent
-set tabstop=2
-set softtabstop=2
-set expandtab
-set shiftwidth=2
-set shiftround
+set splitbelow           " Open slipt pane to bottom which feels more natural
+set splitright           " Open slipt pane to right which feels more natural
 
-" Searching {{{1
+" Searching {{{2
 
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+" Editing {{{2
+
+set selection=exclusive           " Exclude last character when selecting in visual mode
+set showmatch                     " Show matched parentesis, brackets...
+set backspace=indent,eol,start    " Normal backspace behaviour
+set nojoinspaces                  " Don't insert space after .,?! with a j cmd
+set eol                           " Always write end of line in a file
+
+" trim_trailing_white_space_on_save
+autocmd FileType ruby,html,css,javascript,eruby,dockerfile,cucumber autocmd BufWritePre <buffer> %s/\s\+$//e
+
+" Indentation {{{3
+
+set autoindent                    " Copy indent from current line
+set expandtab                     " Use spaces instead of Tabs
+set softtabstop=2                 " Tab key indents 2 spaces
+set shiftwidth=2                  " >> indents 2 spaces
+set shiftround                    " >> indent to multiple of 'shiftwidth'
+set tabstop=2                     " Number of spaces a Tab counts
 
 " Key Mappings {{{1
 
@@ -92,16 +121,22 @@ nnoremap <CR> O<Esc>j
 " Break line without going into insert mode
 nnoremap <Leader>b i<CR><Esc>k$
 
+" NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
+" test.vim
+nmap <Leader>tf :TestFile<CR>
+nmap <Leader>te :TestNearest<CR>
+nmap <Leader>tl :TestLast<CR>
+nmap <Leader>ts :TestSuite<CR>
+nmap <Leader>tv :TestVisit<CR>
+
 " CtrlP {{{1
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/.git/*
-
-" NERDTree {{{1
-
-map <C-n> :NERDTreeToggle<CR>
 
 " Vim Airline {{{1
 
@@ -116,19 +151,9 @@ let g:airline_theme_patch_func = 'AirlineThemePatch'
   endfunction
 " 2}}}
 
-" Syntastic {{{1
-
-let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-
 " test.vim {{{1
 
 let test#strategy = "dispatch"
-
-nmap <Leader>tf :TestFile<CR>
-nmap <Leader>te :TestNearest<CR>
-nmap <Leader>tl :TestLast<CR>
-nmap <Leader>ts :TestSuite<CR>
-nmap <Leader>tv :TestVisit<CR>
 
 " Silver Searcher {{{1
 
@@ -167,27 +192,6 @@ function! InsertTabWrapper()
 endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
-
-" Other Settings {{{1
-
-set history=5000
-set encoding=utf-8
-set backspace=indent,eol,start
-set selection=exclusive
-set clipboard=unnamed
-set noswapfile
-set nojoinspaces
-
-" trim_trailing_white_space_on_save
-autocmd FileType ruby,html,css,javascript,eruby,dockerfile,cucumber autocmd BufWritePre <buffer> %s/\s\+$//e
-set eol
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-
-" Fast escape key
-set timeoutlen=1000 ttimeoutlen=0
 
 " tpope cucumber tables alignment gist {{{1
 
