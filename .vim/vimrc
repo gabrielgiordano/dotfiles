@@ -122,14 +122,14 @@ nnoremap <CR> O<Esc>j
 nnoremap <Leader>b i<CR><Esc>k$
 
 " NERDTree
-map <C-n> :NERDTreeToggle<CR>
+noremap <C-n> :NERDTreeToggle<CR>
 
 " test.vim
-nmap <Leader>tf :TestFile<CR>
-nmap <Leader>te :TestNearest<CR>
-nmap <Leader>tl :TestLast<CR>
-nmap <Leader>ts :TestSuite<CR>
-nmap <Leader>tv :TestVisit<CR>
+nnoremap <Leader>tf :TestFile<CR>
+nnoremap <Leader>te :TestNearest<CR>
+nnoremap <Leader>tl :TestLast<CR>
+nnoremap <Leader>ts :TestSuite<CR>
+nnoremap <Leader>tv :TestVisit<CR>
 
 " CtrlP {{{1
 
