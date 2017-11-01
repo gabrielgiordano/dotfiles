@@ -35,6 +35,7 @@ Plugin 'godlygeek/tabular' " tim-pope gist dependency
 Plugin 'pangloss/vim-javascript'
 Plugin 'mattn/emmet-vim'
 
+runtime macros/matchit.vim
 " Vundle {{{1
 
 call vundle#end()
@@ -54,6 +55,7 @@ set timeoutlen=1000 ttimeoutlen=0  " Fast escape key
 
 set ttyfast                        " Faster redrawing
 set lazyredraw                     " Only redraw when necessary
+set synmaxcol=200                  " Only highlight the first 200 columns.
 
 " Interface {{{2
 
@@ -130,6 +132,10 @@ nnoremap <Leader>te :TestNearest<CR>
 nnoremap <Leader>tl :TestLast<CR>
 nnoremap <Leader>ts :TestSuite<CR>
 nnoremap <Leader>tv :TestVisit<CR>
+
+" Move between linting errors
+nnoremap ]l 0:ALENextWrap<CR>
+nnoremap [l 0:ALEPreviousWrap<CR>
 
 " CtrlP {{{1
 
