@@ -91,10 +91,14 @@ set backspace=indent,eol,start    " Normal backspace behaviour
 set nojoinspaces                  " Don't insert space after .,?! with a j cmd
 set eol                           " Always write end of line in a file
 
-" trim_trailing_white_space_on_save
-autocmd FileType ruby,html,css,javascript,eruby,dockerfile,cucumber autocmd BufWritePre <buffer> %s/\s\+$//e
+" Autocommands {{{2
 
-" Indentation {{{3
+augroup myautocommands
+  " trim_trailing_white_space_on_save
+  autocmd FileType ruby,html,css,javascript,eruby,dockerfile,cucumber autocmd BufWritePre <buffer> %s/\s\+$//e
+augroup END
+
+" Indentation {{{2
 
 set autoindent                    " Copy indent from current line
 set expandtab                     " Use spaces instead of Tabs
