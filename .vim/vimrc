@@ -138,8 +138,10 @@ nnoremap <Leader>ts :TestSuite<CR>
 nnoremap <Leader>tv :TestVisit<CR>
 
 " Move between linting errors
-nnoremap ]l 0:ALENextWrap<CR>
-nnoremap [l 0:ALEPreviousWrap<CR>
+nnoremap <Leader>at :ALEToggle<CR>
+nnoremap <Leader>af :ALEFix<CR>
+nnoremap <Leader>an 0:ALENextWrap<CR>
+nnoremap <Leader>aN 0:ALEPreviousWrap<CR>
 
 " CtrlP {{{1
 
@@ -202,6 +204,10 @@ function! InsertTabWrapper()
 endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
+
+" ALE {{{1
+
+let g:ale_fixers = { 'ruby': ['rubocop'] }
 
 " tpope cucumber tables alignment gist {{{1
 
