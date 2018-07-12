@@ -2,7 +2,6 @@
 nnoremap <Space> za
 
 " Vundle {{{1
-
 set nocompatible
 filetype off
 
@@ -23,55 +22,104 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'w0rp/ale'
+Plugin 'terryma/vim-multiple-cursors'
 Plugin 'pbrisbin/vim-mkdir'
-Plugin 'pangloss/vim-javascript'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'tpope/vim-cucumber'
-Plugin 'godlygeek/tabular'
-Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
+Plugin 'janko-m/vim-test'
+Plugin 'tpope/vim-dispatch' " vim-test dependency
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-cucumber'
+Plugin 'godlygeek/tabular' " tim-pope gist dependency
+Plugin 'pangloss/vim-javascript'
+Plugin 'elixir-editors/vim-elixir'
 Plugin 'mattn/emmet-vim'
 
+runtime macros/matchit.vim
 " Vundle {{{1
 
 call vundle#end()
+
+" Vim Settings {{{1
+
+set nocompatible                   " Don't bother making vim compatible with vi
 filetype plugin indent on
 
-" UI {{{1
+set history=5000                   " Command history size
+set encoding=utf-8
+set clipboard=unnamed
+set noswapfile
+set timeoutlen=1000 ttimeoutlen=0  " Fast escape key
 
+" Performance {{{2
+
+set ttyfast                        " Faster redrawing
+set lazyredraw                     " Only redraw when necessary
+set synmaxcol=200                  " Only highlight the first 200 columns.
+set regexpengine=1                 " Revert to old and faster engine
+
+" Interface {{{2
+
+colorscheme Monokai                      " Dependend on vim-colorschemes
 syntax enable
-colorscheme Monokai
 
-set number
-set colorcolumn=80
-set nowrap
-set ruler
-set showcmd
-set noshowmode
-set showmatch
-set laststatus=2
-set list listchars=tab:»·,trail:·,nbsp:·
+set number                               " Show line numbers
+set colorcolumn=80                       " Show where column 80 is
+set nowrap                               " Don't wrap long lines
+set ruler                                " Show cursor postion all time
+set showcmd                              " Show command as you type
+set laststatus=2                         " Always show the status line
+set noshowmode                           " Mode will be shown in status line
+set list listchars=tab:»·,trail:·,nbsp:· " Show non printable characters.
+" set scrolloff=15                         " Always keep cursor in the middle
 
-" Indentation {{{1
+" Window Management {{{2
 
-set autoindent
-set tabstop=2
-set softtabstop=2
-set expandtab
-set shiftwidth=2
-set shiftround
+set splitbelow           " Open slipt pane to bottom which feels more natural
+set splitright           " Open slipt pane to right which feels more natural
 
-" Searching {{{1
+" Searching {{{2
 
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 
+" Editing {{{2
+
+set showmatch                     " Show matched parentesis, brackets...
+set backspace=indent,eol,start    " Normal backspace behaviour
+set nojoinspaces                  " Don't insert space after .,?! with a j cmd
+set eol                           " Always write end of line in a file
+
+" Autocommands {{{2
+
+augroup myautocommands
+  " trim_trailing_white_space_on_save
+  autocmd FileType c,ruby,html,css,javascript,eruby,dockerfile,cucumber autocmd BufWritePre <buffer> %s/\s\+$//e
+augroup END
+
+" Set wrap in Quickfix window
+augroup quickfix
+    autocmd!
+    autocmd FileType qf setlocal wrap
+augroup END
+
+" Indentation {{{2
+
+set autoindent                    " Copy indent from current line
+set expandtab                     " Use spaces instead of Tabs
+set softtabstop=2                 " Tab key indents 2 spaces
+set shiftwidth=2                  " >> indents 2 spaces
+set shiftround                    " >> indent to multiple of 'shiftwidth'
+set tabstop=2                     " Number of spaces a Tab counts
+
 " Key Mappings {{{1
 
+let mapleader = ","
 map Q gq
 
 " Quicker window movement
@@ -80,21 +128,37 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
+" Switch between the last two files
+nnoremap <Leader><Leader> <c-^>
+
+" Create new line without leaving normal mode
+nnoremap <CR> O<Esc>j
+
+" Break line without going into insert mode
+nnoremap <Leader>b i<CR><Esc>k$
+
+" NERDTree
+noremap <Leader>n :NERDTreeToggle<CR>
+
+" test.vim
+nnoremap <Leader>tf :TestFile<CR>
+nnoremap <Leader>te :TestNearest<CR>
+nnoremap <Leader>tl :TestLast<CR>
+nnoremap <Leader>ts :TestSuite<CR>
+nnoremap <Leader>tv :TestVisit<CR>
+
+" Move between linting errors
+nnoremap <Leader>at :ALEToggle<CR>
+nnoremap <Leader>af :ALEFix<CR>
+nnoremap <Leader>an 0:ALENextWrap<CR>
+nnoremap <Leader>aN 0:ALEPreviousWrap<CR>
+
 " CtrlP {{{1
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/.git/*
-
-let g:ctrlp_open_func = { 'files': 'CustomOpenFunc' }
-function! CustomOpenFunc(action, line)
-  call call('ctrlp#acceptfile', [':t', a:line])
-endfunction
-
-" NERDTree {{{1
-
-map <C-n> :NERDTreeToggle<CR>
 
 " Vim Airline {{{1
 
@@ -109,12 +173,9 @@ let g:airline_theme_patch_func = 'AirlineThemePatch'
   endfunction
 " 2}}}
 
-" RSpec Vim {{{1
+" test.vim {{{1
 
-map tf :call RunCurrentSpecFile()<CR>
-map te :call RunNearestSpec()<CR>
-map tt :call RunLastSpec()<CR>
-map tA :call RunAllSpecs()<CR>
+let test#strategy = "dispatch"
 
 " Silver Searcher {{{1
 
@@ -154,26 +215,9 @@ endfunction
 inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
 
-" Other Settings {{{1
+" ALE {{{1
 
-set history=5000
-set encoding=utf-8
-set backspace=indent,eol,start
-set selection=exclusive
-set clipboard=unnamedplus
-set noswapfile
-set nojoinspaces
-
-" trim_trailing_white_space_on_save
-autocmd FileType ruby,html,css,javascript,eruby,dockerfile,cucumber autocmd BufWritePre <buffer> %s/\s\+$//e
-set eol
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-
-" Fast escape key
-set timeoutlen=1000 ttimeoutlen=0
+let g:ale_fixers = { 'ruby': ['rubocop'] }
 
 " tpope cucumber tables alignment gist {{{1
 
@@ -189,3 +233,4 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+

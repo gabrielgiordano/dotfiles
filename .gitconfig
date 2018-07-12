@@ -2,10 +2,33 @@
   helper = store
 [core]
   editor = vim
+  excludesfile = /home/gabriel/.gitignore
+  pager = diff-so-fancy | less -R
 [user]
   name = Gabriel Giordano
-  email = gabriel.giordano@estudar.org.br
+  email = gabrielgiordanob@gmail.com
 [push]
   default = simple
 [commit]
   template = ~/.gitmessage
+[pull]
+  rebase = true
+[merge]
+  ff = false
+[alias]
+  pf = push --force-with-lease
+  ls = log --pretty=format:'%C(yellow)%h %C(blue)%ad%C(red)%d %C(reset)%s%C(green) [%cn]' --decorate --date=short
+[color]
+  ui = true
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[color "diff"]
+  meta = yellow
+  frag = magenta bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
