@@ -93,6 +93,7 @@ set showmatch                     " Show matched parentesis, brackets...
 set backspace=indent,eol,start    " Normal backspace behaviour
 set nojoinspaces                  " Don't insert space after .,?! with a j cmd
 set eol                           " Always write end of line in a file
+set clipboard=unnamedplus         " Use system clipboard
 
 " Autocommands {{{2
 
