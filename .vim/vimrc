@@ -22,6 +22,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'w0rp/ale'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'pbrisbin/vim-mkdir'
@@ -49,7 +50,6 @@ filetype plugin indent on
 
 set history=5000                   " Command history size
 set encoding=utf-8
-set clipboard=unnamed
 set noswapfile
 set timeoutlen=1000 ttimeoutlen=0  " Fast escape key
 
@@ -58,7 +58,6 @@ set timeoutlen=1000 ttimeoutlen=0  " Fast escape key
 set ttyfast                        " Faster redrawing
 set lazyredraw                     " Only redraw when necessary
 set synmaxcol=200                  " Only highlight the first 200 columns.
-set regexpengine=1                 " Revert to old and faster engine
 
 " Interface {{{2
 
@@ -158,6 +157,8 @@ nnoremap <Leader>aN 0:ALEPreviousWrap<CR>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_max_files = 100000
+let g:ctrlp_max_depth = 80
 set wildignore+=*/.git/*
 
 " Vim Airline {{{1
@@ -186,7 +187,7 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
+  let g:ctrlp_user_command = 'ag --literal --files-with-matches --nocolor --hidden -g "" %s'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
