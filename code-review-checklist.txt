@@ -24,6 +24,9 @@ Code Review Checklist:
       Does it depend on things that change less often than it does?
 
     Law of Demeter
+      Ask for what you need, don't use thinks to get what you need
+        Bonus: Why Service Locators/Context are bad: (Constructor that lies, depend on whole project)
+          https://www.youtube.com/watch?v=RlfLCWKxHJ0
       https://en.wikipedia.org/wiki/Law_of_Demeter
 
     Tell Don't Ask
