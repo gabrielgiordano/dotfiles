@@ -7,20 +7,21 @@ Code Review Checklist:
       Does everything in it change at the same rate?
 
     Has few dependencies?
+      It's using dependency injection?
+        https://www.youtube.com/watch?v=-FRm3VPhseI (Why Global State (Singleton) is bad and how DI helps)
 
     Single Responsability
       Does it have one responsability?
 
     Open Closed Principle
+      Remove if's with polymorphism (Bonus: Why you should follow SRP!)
+        https://www.youtube.com/watch?v=4F72VULWFvc
 
     Liskov Substitution Principle
       Design by Contract, respect class preconditions and postconditions
 
     Dependency Inversion Principle
       Does it depend on things that change less often than it does?
-
-    Remove if's with polymorphism (Bonus: Why you should follow SRP!)
-      https://www.youtube.com/watch?v=4F72VULWFvc
 
     Law of Demeter
       https://en.wikipedia.org/wiki/Law_of_Demeter
