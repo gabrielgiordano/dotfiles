@@ -5,6 +5,8 @@ Code Review Checklist:
 
     Is everything at the same abstraction level?
       Does everything in it change at the same rate?
+      
+    How is the design at the logic level?
 
     Has few dependencies?
       It's using dependency injection?
