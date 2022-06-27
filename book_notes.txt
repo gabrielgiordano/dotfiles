@@ -1,0 +1,18 @@
+juval lowy - righting software
+  = do volatile based decomposition
+  = ask if requirements are really requirements or if they are solutions masquerading
+  = ask how the system changes:
+    = for a single user using it through time
+    = for multiple users using it at a given time
+  = compare your client with their competitors to find areas of volatility
+  = do not encapsulate changes in the nature of the business
+  = (my insight) use scenarios to prove that your decomposition supports the change you are expecting
+
+  = use layers to encapsulate common volatilities (client, business (managers, engines), resource access, resources, utilities layers)
+    = look for atomic verbs in the nature of the business, they are good candidates for your interface (credit/debit in a bank)
+
+  = to validate your decomposition
+    = use call chain diagrams and sequence diagrams
+    = find the core use case
+    = find the smallest set of components that satisfy your use cases
+    = use cases are created by the interaction between components (their composition - like parnas paper)
